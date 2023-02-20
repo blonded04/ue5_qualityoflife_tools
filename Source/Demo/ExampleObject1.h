@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "MyObjejct.h"
-#include "UObject/Object.h"
 #include "ExampleObject1.generated.h"
 
 UCLASS()
@@ -12,12 +11,12 @@ class DEMO_API UExampleObject1 : public UMyObjejct
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Level;
+	int Level = 5;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Power;
+	float Power = 23.214;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bCool;
+	bool bCool = true;
 	
 };
