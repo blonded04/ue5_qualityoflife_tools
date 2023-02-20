@@ -14,7 +14,38 @@ FString UStringParseTool::ParseDescription() const
 {
 	//  Of course it's possible to do it in one for-loop going through each symbol once, but for more
 	// readability in this non high-frequency code using default parser-pipeline Text -> Tokens -> ParseResult
-	const FString& Str = Description.ToString();
+	TArray<FToken> Tokens;
+	if (auto TokenizedString = GetTokens(Description.ToString())) {
+		Tokens = MoveTemp(*TokenizedString);
+	} else
+	{
+		return "PARSE_ERROR: Invalid string format";
+	}
+
+	TArray<FString> StringArray;
+	StringArray.Reserve(Tokens.Num());
+	for (auto& [TokenStatus, TokenValue] : Tokens)
+	{
+		if (TokenStatus == FToken::READY)
+		{
+			StringArray.Push(MoveTemp(TokenValue));
+			continue;
+		}
+
+		auto NewTokenValue = ParseToken(TokenValue);
+
+		if (!NewTokenValue)
+		{
+			return "PARSE_ERROR: couldn't parse token " + TokenValue;
+		}
+		StringArray.Push(MoveTemp(*NewTokenValue));
+	}
+
+	return UKismetStringLibrary::JoinStringArray(StringArray, "");
+}
+
+TOptional<TArray<UStringParseTool::FToken>> UStringParseTool::GetTokens(const FString& Str) const
+{
 	TArray<FToken> Tokens;
 	
 	int32 ProcessedSymbols = 0;
@@ -31,7 +62,10 @@ FString UStringParseTool::ParseDescription() const
 		int32 RightBracket = Str.Find("}", ESearchCase::CaseSensitive, ESearchDir::FromStart, LeftBracket);
 		if (RightBracket == Str.Len())
 		{
-			return "PARSE_ERROR: no matching \'}\' for \'{\' at position " + FString::FromInt(LeftBracket);
+			UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: no matching \'}\' for \'{\' at position \'%i\'"),
+				this, *FString::FromInt(LeftBracket));
+			
+			return NullOpt;
 		}
 
 		if (0 < LeftBracket - ProcessedSymbols)
@@ -44,36 +78,14 @@ FString UStringParseTool::ParseDescription() const
 		ProcessedSymbols = RightBracket + 1;
 	}
 
-	TArray<FString> StringArray;
-	StringArray.Reserve(Tokens.Num());
-	for (auto& [TokenStatus, TokenValue] : Tokens)
-	{
-		if (TokenStatus == FToken::READY)
-		{
-			StringArray.Push(std::move(TokenValue));
-			continue;
-		}
-
-		auto NewTokenValue = ParseToken(TokenValue);
-
-		if (!NewTokenValue)
-		{
-			return "PARSE_ERROR: couldn't parse token " + TokenValue;
-		}
-		StringArray.Push(std::move(*NewTokenValue));
-	}
-
-	return UKismetStringLibrary::JoinStringArray(StringArray, "");
+	return Tokens;
 }
 
 TOptional<FString> UStringParseTool::ParseToken(const FString& TokenValue) const
 {
-	int32 SemicolonIndex = TokenValue.Find(":");
-	SemicolonIndex = SemicolonIndex == -1 ? TokenValue.Len() : SemicolonIndex;
-	int32 DollarIndex1 = TokenValue.Find("$", ESearchCase::CaseSensitive, ESearchDir::FromStart, SemicolonIndex + 1);
-	DollarIndex1 = DollarIndex1 == -1 ? TokenValue.Len() : DollarIndex1;
-	int32 DollarIndex2 = TokenValue.Find("$", ESearchCase::CaseSensitive, ESearchDir::FromStart, DollarIndex1 + 1);
-	DollarIndex2 = DollarIndex2 == -1 ? TokenValue.Len() : DollarIndex2;
+	int32 SemicolonIndex = FindCharacterInToken(TokenValue, ":", 0);
+	int32 DollarIndex1 = FindCharacterInToken(TokenValue, "$", SemicolonIndex + 1);
+	int32 DollarIndex2 = FindCharacterInToken(TokenValue, "$", DollarIndex1 + 1);
 	
 	if (SemicolonIndex == TokenValue.Len() || (DollarIndex1 != TokenValue.Len() && DollarIndex2 == TokenValue.Len()))
 	{
@@ -84,40 +96,19 @@ TOptional<FString> UStringParseTool::ParseToken(const FString& TokenValue) const
 	}
 
 	UMyObjejct *Holder;
-	if (FProperty *HolderProperty = GetClass()->FindPropertyByName(FName(TokenValue.Mid(0, SemicolonIndex)));
-		HolderProperty == nullptr)
+	if (auto MaybeHolder = GetObjectByName(TokenValue.Left(SemicolonIndex)))
 	{
-		UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't find FProperty* named \"%s\" for token {%s}"),
-			this, *TokenValue.Mid(0, SemicolonIndex), *TokenValue);
-		
-		return NullOpt;
-	} else if (FObjectProperty *ObjectHolderProperty = CastField<FObjectProperty>(HolderProperty);
-		ObjectHolderProperty == nullptr)
-	{
-		UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't cast property named \"%s\" on address \'%p\' to FObjectProperty* for token {%s}"),
-			this, *TokenValue.Mid(0, SemicolonIndex), HolderProperty, *TokenValue);
-		
-		return NullOpt;
-	} else if (UObject *HolderObject = ObjectHolderProperty->GetOptionalPropertyValue_InContainer(this);
-		HolderObject == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't get UObject* named \"%s\" for token {%s}"),
-			this, *TokenValue.Mid(0, SemicolonIndex), *TokenValue);
-		
-		return NullOpt;
-	} else if (UMyObjejct *TempHolder = Cast<UMyObjejct>(HolderObject);
-		TempHolder == nullptr)
-	{
-		UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't cast object named \"%s\" on address \'%p\' to MyObjejct* for token {%s}"),
-			this, *TokenValue.Mid(0, SemicolonIndex), HolderObject, *TokenValue);
-		
-		return NullOpt;
+		Holder = *MaybeHolder;
 	} else
 	{
-		Holder = TempHolder;
+		UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't find member-variable named \"%s\" for StringParseTool \'%p\' for token {%s}"),
+			 this, *TokenValue.Left(SemicolonIndex), this, *TokenValue);
+
+		return NullOpt;
 	}
 
 	FString RequestedPropertyName = TokenValue.Mid(SemicolonIndex + 1, DollarIndex1 - SemicolonIndex - 1);
-	FProperty *ValueProperty = Holder->GetClass()->FindPropertyByName(FName(std::move(RequestedPropertyName)));
+	FProperty *ValueProperty = Holder->GetClass()->FindPropertyByName(FName(MoveTemp(RequestedPropertyName)));
     if (ValueProperty == nullptr)
    	{
     	UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: Couldn't find FProperty* named \"%s\" for object \'%p\' for token {%s}"),
@@ -150,5 +141,28 @@ TOptional<FString> UStringParseTool::ParseToken(const FString& TokenValue) const
 	UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: FProperty* on address \'%p\' with name \"%s\" inside UMyObjejct* on address \'%p\' is not a bool property (while it must be) for token {%s}"),
 		this, ValueProperty, *TokenValue.Mid(SemicolonIndex + 1, DollarIndex1 - SemicolonIndex - 1), Holder, *TokenValue);
 	
+	return NullOpt;
+}
+
+int32 UStringParseTool::FindCharacterInToken(const FString& TokenValue, const FString& SubStr, int32 IndexStart)
+{
+	const int32 Index = TokenValue.Find(SubStr, ESearchCase::CaseSensitive, ESearchDir::FromStart, IndexStart);
+	return Index == -1 ? TokenValue.Len() : Index;
+}
+
+TOptional<UMyObjejct*> UStringParseTool::GetObjectByName(FString&& Name) const
+{
+#define STRINGPARSETOOL_MAP_ENTRY(name, obj) {FString(name), [](const UStringParseTool* ParseTool) { return ParseTool->obj; }}
+	static TMap<FString, TFunction<UMyObjejct*(const UStringParseTool*)>> NameNoFunction = {
+		STRINGPARSETOOL_MAP_ENTRY("Obj1", Obj1),
+		STRINGPARSETOOL_MAP_ENTRY("Obj2", Obj2),
+		STRINGPARSETOOL_MAP_ENTRY("Obj3", Obj3),
+	  };
+#undef STRINGPARSETOOL_MAP_ENTRY
+	
+	if (NameNoFunction.Contains(Name))
+	{
+		return NameNoFunction[Name](this);
+	}
 	return NullOpt;
 }

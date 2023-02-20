@@ -44,5 +44,11 @@ private:
 		FString TokenValue;
 	};
 
-	TOptional<FString> ParseToken(const FString& TokenValue) const;
+	UE_NODISCARD TOptional<TArray<FToken>> GetTokens(const FString& Str) const;
+
+	UE_NODISCARD TOptional<FString> ParseToken(const FString& TokenValue) const;
+
+	UE_NODISCARD static int32 FindCharacterInToken(const FString& TokenValue, const FString& SubStr, int32 IndexStart);
+
+	UE_NODISCARD TOptional<UMyObjejct*> GetObjectByName(FString&& Name) const;
 };
