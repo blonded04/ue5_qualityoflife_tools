@@ -48,6 +48,9 @@ private:
 
 	UE_NODISCARD TOptional<FString> ParseToken(const FString& TokenValue) const;
 
+	/**
+	 * STL-convention FString::Find-wrapper (returning TokenValue.Len() instead of -1 if not found leads to a cleaner code)
+	 */
 	UE_NODISCARD static int32 FindCharacterInToken(const FString& TokenValue, const FString& SubStr, int32 IndexStart);
 
 	UE_NODISCARD TOptional<UMyObjejct*> GetObjectByName(FString&& Name) const;

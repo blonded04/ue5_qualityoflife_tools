@@ -51,7 +51,7 @@ TOptional<TArray<UStringParseTool::FToken>> UStringParseTool::GetTokens(const FS
 	int32 ProcessedSymbols = 0;
 	while (ProcessedSymbols < Str.Len())
 	{
-		int32 LeftBracket = Str.Find("{", ESearchCase::CaseSensitive, ESearchDir::FromStart, ProcessedSymbols);
+		int32 LeftBracket = FindCharacterInToken(Str, "{", ProcessedSymbols);
 
 		if (LeftBracket == Str.Len())
 		{
@@ -59,7 +59,7 @@ TOptional<TArray<UStringParseTool::FToken>> UStringParseTool::GetTokens(const FS
 			break;
 		}
 
-		int32 RightBracket = Str.Find("}", ESearchCase::CaseSensitive, ESearchDir::FromStart, LeftBracket);
+		int32 RightBracket = FindCharacterInToken(Str, "}", LeftBracket);
 		if (RightBracket == Str.Len())
 		{
 			UE_LOG(LogTemp, Error, TEXT("StringParseTool-%p: no matching \'}\' for \'{\' at position \'%i\'"),
