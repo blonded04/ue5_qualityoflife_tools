@@ -1,9 +1,17 @@
-# ue5reflectionparsereftool
+# Unreal Engine 5 Quality of Life Tools
 
-If you need to parse member-variables into a text in Unreal Editor (for example, when editing some stats that are reflected in text) you can use `Source/Demo/StringParseTool`!
+Repository holds small utilities and tools for Unreal Engine 5 game development:
 
-#### Usage
-Create a derived from StringParseTool BP that has three pointers to the objects -- set them to pointers you want and change Description: resulting string will be in DescriptionPreview field.
+* [StringParseTool](ReadMe/StringParseTool.md) — reflection-based variable-to-text parsing tool
+* [BlueprintFloats](ReadMe/BlueprintFloats.md) — use blueprint floats and float-value functions inside your C++ code
 
-#### Examples
-See `Content/Demo/Task.uasset`, and 3 objects: `Source/Demo/ExampleObject1`, `Source/Demo/ExampleObject2`, `Content/Demo/ExampleObject3` Task points to!
+#### License
+
+The unlicense:
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+More info: [LICENSE](LICENSE)
