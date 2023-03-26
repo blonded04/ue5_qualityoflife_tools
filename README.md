@@ -5,7 +5,7 @@ Repository holds small utilities and tools for Unreal Engine 5 game development:
 * [StringParseTool](ReadMe/StringParseTool.md) — reflection-based variable-to-text parsing tool
 * [BlueprintFloats](ReadMe/BlueprintFloats.md) — use blueprint floats and float-value functions inside your C++ code
 
-#### License
+## License
 
 The unlicense:
 
