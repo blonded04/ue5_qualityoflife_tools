@@ -1,5 +1,6 @@
 #include "FloatExtractor.h"
 
-float UFloatExtractor::GetValue_Implementation() {
+float UFloatExtractor::GetValue_Implementation() 
+{
     return 0.0f;
 }
