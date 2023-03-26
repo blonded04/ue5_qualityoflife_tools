@@ -5,7 +5,7 @@
 #include "ConstFloatExtractor.generated.h"
 
 /**
- * 
+ * Simple FloatExtractor that only holds one value.
  */
 UCLASS()
 class DEMO_API UConstFloatExtractor : public UFloatExtractor
@@ -13,11 +13,8 @@ class DEMO_API UConstFloatExtractor : public UFloatExtractor
 	GENERATED_BODY()
 
 public:
-	UConstFloatExtractor() = default;
-	UConstFloatExtractor(float value);
-
 	virtual float GetValue_Implementation() override;
 
-private:
-	float m_value{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Value{};
 };
