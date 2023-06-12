@@ -8,7 +8,7 @@
  * FloatExtractor that changes value by some delta every time FloatExtractor is called
  */
 UCLASS()
-class DEMO_API UArithmeticFloatExtractor : public UFloatExtractor
+class QUALITYOFLIFE_API UArithmeticFloatExtractor : public UFloatExtractor
 {
 	GENERATED_BODY()
 	

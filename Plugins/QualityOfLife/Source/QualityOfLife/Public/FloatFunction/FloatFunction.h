@@ -8,7 +8,7 @@
  * FloatFunction is a blueprints instancable wrapper around float -> float function 
  */
 UCLASS(Blueprintable, BlueprintType, EditInlineNew)
-class DEMO_API UFloatFunction : public UObject
+class QUALITYOFLIFE_API UFloatFunction : public UObject
 {
 	GENERATED_BODY()
 	

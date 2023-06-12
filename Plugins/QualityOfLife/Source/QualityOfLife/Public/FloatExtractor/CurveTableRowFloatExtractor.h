@@ -9,7 +9,7 @@
  * CurveTableRowFloatExtractor is a float extractor that allows you to get 
  */
 UCLASS()
-class DEMO_API UCurveTableRowFloatExtractor : public UFloatExtractor
+class QUALITYOFLIFE_API UCurveTableRowFloatExtractor : public UFloatExtractor
 {
 	GENERATED_BODY()
 	

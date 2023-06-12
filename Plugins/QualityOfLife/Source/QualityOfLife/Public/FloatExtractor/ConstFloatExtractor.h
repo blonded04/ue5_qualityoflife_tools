@@ -8,7 +8,7 @@
  * Simple FloatExtractor that only holds one value.
  */
 UCLASS()
-class DEMO_API UConstFloatExtractor : public UFloatExtractor
+class QUALITYOFLIFE_API UConstFloatExtractor : public UFloatExtractor
 {
 	GENERATED_BODY()
 

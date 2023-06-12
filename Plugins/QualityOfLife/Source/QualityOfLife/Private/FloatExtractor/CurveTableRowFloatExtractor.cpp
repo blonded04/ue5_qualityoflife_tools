@@ -1,4 +1,4 @@
-#include "CurveTableRowFloatExtractor.h"
+#include "FloatExtractor/CurveTableRowFloatExtractor.h"
 
 float UCurveTableRowFloatExtractor::GetValue_Implementation() 
 {

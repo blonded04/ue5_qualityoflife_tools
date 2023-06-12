@@ -8,7 +8,7 @@
  * Basic FloatFunction that returns the same value
  */
 UCLASS()
-class DEMO_API UIdentityFunction : public UFloatFunction
+class QUALITYOFLIFE_API UIdentityFunction : public UFloatFunction
 {
 	GENERATED_BODY()
 

@@ -8,7 +8,7 @@
  *  FloatExtractor is a blueprint instancable wrapper around float
  */
 UCLASS(Blueprintable, BlueprintType, EditInlineNew)
-class DEMO_API UFloatExtractor : public UObject
+class QUALITYOFLIFE_API UFloatExtractor : public UObject
 {
 	GENERATED_BODY()
 	

@@ -8,7 +8,7 @@
  * FloatFunction that squares given value
  */
 UCLASS()
-class DEMO_API USquareFunction : public UFloatFunction
+class QUALITYOFLIFE_API USquareFunction : public UFloatFunction
 {
 	GENERATED_BODY()
 	
