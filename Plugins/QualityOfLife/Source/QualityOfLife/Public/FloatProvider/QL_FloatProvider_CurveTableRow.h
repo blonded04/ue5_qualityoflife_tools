@@ -16,9 +16,9 @@ class QUALITYOFLIFE_API UQL_FloatProvider_CurveTableRow : public UQL_FloatProvid
 public:
 	virtual float GetValue_Implementation() override;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Float Provider")
 	float AxisXValue = 1.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Float Provider")
 	FCurveTableRowHandle RowHandle;
 };

@@ -15,6 +15,6 @@ class QUALITYOFLIFE_API UQL_FloatProvier_Constant : public UQL_FloatProvider
 public:
 	virtual float GetValue_Implementation() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Float Provider")
 	float Value = 0.0f;
 };

@@ -12,7 +12,7 @@ class QUALITYOFLIFE_API UQL_FloatFunction : public UObject
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="QoL|Float Function")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Float Function")
     float Eval(float Value);
 
     virtual float Eval_Implementation(float Value);
