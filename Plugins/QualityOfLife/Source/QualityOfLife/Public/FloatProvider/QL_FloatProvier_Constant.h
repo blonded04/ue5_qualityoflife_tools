@@ -2,13 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "QL_FloatProvider.h"
-#include "QL_FloatExtractor_Constant.generated.h"
+#include "QL_FloatProvier_Constant.generated.h"
 
 /**
  * Simple FloatProvider that only holds one value.
  */
-UCLASS()
-class QUALITYOFLIFE_API UQL_FloatExtractor_Constant : public UQL_FloatProvider
+UCLASS(DisplayName="Constant")
+class QUALITYOFLIFE_API UQL_FloatProvier_Constant : public UQL_FloatProvider
 {
 	GENERATED_BODY()
 

@@ -3,13 +3,13 @@
 #include "CoreMinimal.h"
 #include "QL_FloatProvider.h"
 #include "Engine/CurveTable.h"
-#include "QL_FloatExtractor_CurveTableRow.generated.h"
+#include "QL_FloatProvider_CurveTableRow.generated.h"
 
 /**
  * FloatProvider that allows you to get floats from a curve table row 
  */
-UCLASS()
-class QUALITYOFLIFE_API UQL_FloatExtractor_CurveTableRow : public UQL_FloatProvider
+UCLASS(DisplayName="Curve Table Row")
+class QUALITYOFLIFE_API UQL_FloatProvider_CurveTableRow : public UQL_FloatProvider
 {
 	GENERATED_BODY()
 	

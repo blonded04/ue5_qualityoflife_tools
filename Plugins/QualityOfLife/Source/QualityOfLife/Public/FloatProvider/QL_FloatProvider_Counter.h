@@ -2,13 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "QL_FloatProvider.h"
-#include "QL_FloatExtractor_Counter.generated.h"
+#include "QL_FloatProvider_Counter.generated.h"
 
 /**
  * FloatProvider that changes value by some delta every time GetValue is called
  */
-UCLASS()
-class QUALITYOFLIFE_API UQL_FloatExtractor_Counter : public UQL_FloatProvider
+UCLASS(DisplayName="Counter")
+class QUALITYOFLIFE_API UQL_FloatProvider_Counter : public UQL_FloatProvider
 {
 	GENERATED_BODY()
 	

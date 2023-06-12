@@ -7,7 +7,7 @@
 /**
  * Basic FloatFunction that returns the same value
  */
-UCLASS()
+UCLASS(DisplayName="Identity")
 class QUALITYOFLIFE_API UQL_FloatFunction_Identity : public UQL_FloatFunction
 {
 	GENERATED_BODY()

@@ -7,7 +7,7 @@
 /**
  * FloatFunction that squares given value
  */
-UCLASS()
+UCLASS(DisplayName="Square")
 class QUALITYOFLIFE_API UQL_FloatFunction_Square : public UQL_FloatFunction
 {
 	GENERATED_BODY()
