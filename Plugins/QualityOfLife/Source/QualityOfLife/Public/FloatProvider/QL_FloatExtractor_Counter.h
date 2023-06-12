@@ -1,14 +1,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FloatExtractor.h"
-#include "ArithmeticFloatExtractor.generated.h"
+#include "QL_FloatProvider.h"
+#include "QL_FloatExtractor_Counter.generated.h"
 
 /**
  * FloatExtractor that changes value by some delta every time FloatExtractor is called
  */
 UCLASS()
-class QUALITYOFLIFE_API UArithmeticFloatExtractor : public UFloatExtractor
+class QUALITYOFLIFE_API UQL_FloatExtractor_Counter : public UQL_FloatProvider
 {
 	GENERATED_BODY()
 	

@@ -1,14 +1,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FloatFunction.h"
-#include "SquareFunction.generated.h"
+#include "QL_FloatFunction.h"
+#include "QL_FloatFunction_Square.generated.h"
 
 /**
  * FloatFunction that squares given value
  */
 UCLASS()
-class QUALITYOFLIFE_API USquareFunction : public UFloatFunction
+class QUALITYOFLIFE_API UQL_FloatFunction_Square : public UQL_FloatFunction
 {
 	GENERATED_BODY()
 	

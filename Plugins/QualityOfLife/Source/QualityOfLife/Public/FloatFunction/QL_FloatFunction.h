@@ -1,14 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "FloatFunction.generated.h"
+#include "QL_FloatFunction.generated.h"
 
 /**
  * FloatFunction is a blueprints instancable wrapper around float -> float function 
  */
-UCLASS(Blueprintable, BlueprintType, EditInlineNew)
-class QUALITYOFLIFE_API UFloatFunction : public UObject
+UCLASS(Abstract, Blueprintable, BlueprintType, DefaultToInstanced, EditInlineNew)
+class QUALITYOFLIFE_API UQL_FloatFunction : public UObject
 {
 	GENERATED_BODY()
 	

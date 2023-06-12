@@ -1,15 +1,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FloatExtractor.h"
+#include "QL_FloatProvider.h"
 #include "Engine/CurveTable.h"
-#include "CurveTableRowFloatExtractor.generated.h"
+#include "QL_FloatExtractor_CurveTableRow.generated.h"
 
 /**
  * CurveTableRowFloatExtractor is a float extractor that allows you to get 
  */
 UCLASS()
-class QUALITYOFLIFE_API UCurveTableRowFloatExtractor : public UFloatExtractor
+class QUALITYOFLIFE_API UQL_FloatExtractor_CurveTableRow : public UQL_FloatProvider
 {
 	GENERATED_BODY()
 	

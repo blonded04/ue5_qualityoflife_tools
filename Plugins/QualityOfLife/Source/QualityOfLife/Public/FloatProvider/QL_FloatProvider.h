@@ -1,14 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "FloatExtractor.generated.h"
+#include "QL_FloatProvider.generated.h"
 
 /**
  *  FloatExtractor is a blueprint instancable wrapper around float
  */
-UCLASS(Blueprintable, BlueprintType, EditInlineNew)
-class QUALITYOFLIFE_API UFloatExtractor : public UObject
+UCLASS(Abstract, Blueprintable, BlueprintType, DefaultToInstanced, EditInlineNew)
+class QUALITYOFLIFE_API UQL_FloatProvider : public UObject
 {
 	GENERATED_BODY()
 	
