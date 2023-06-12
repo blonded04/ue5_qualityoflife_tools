@@ -5,7 +5,7 @@
 #include "QL_FloatExtractor_Constant.generated.h"
 
 /**
- * Simple FloatExtractor that only holds one value.
+ * Simple FloatProvider that only holds one value.
  */
 UCLASS()
 class QUALITYOFLIFE_API UQL_FloatExtractor_Constant : public UQL_FloatProvider
@@ -15,6 +15,6 @@ class QUALITYOFLIFE_API UQL_FloatExtractor_Constant : public UQL_FloatProvider
 public:
 	virtual float GetValue_Implementation() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Value{};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	float Value = 0.0f;
 };

@@ -5,7 +5,7 @@
 #include "QL_FloatExtractor_Counter.generated.h"
 
 /**
- * FloatExtractor that changes value by some delta every time FloatExtractor is called
+ * FloatProvider that changes value by some delta every time GetValue is called
  */
 UCLASS()
 class QUALITYOFLIFE_API UQL_FloatExtractor_Counter : public UQL_FloatProvider
@@ -15,9 +15,11 @@ class QUALITYOFLIFE_API UQL_FloatExtractor_Counter : public UQL_FloatProvider
 public:
 	virtual float GetValue_Implementation() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Value = {};
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// Base value to count from
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	float BaseValue = 0.0f;
+
+	// Delta value which will be added to the BaseValue every call
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
 	float Delta = 1.0f;
 };

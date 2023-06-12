@@ -6,7 +6,7 @@
 #include "QL_FloatExtractor_CurveTableRow.generated.h"
 
 /**
- * CurveTableRowFloatExtractor is a float extractor that allows you to get 
+ * FloatProvider that allows you to get floats from a curve table row 
  */
 UCLASS()
 class QUALITYOFLIFE_API UQL_FloatExtractor_CurveTableRow : public UQL_FloatProvider
@@ -15,10 +15,10 @@ class QUALITYOFLIFE_API UQL_FloatExtractor_CurveTableRow : public UQL_FloatProvi
 	
 public:
 	virtual float GetValue_Implementation() override;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
+	float AxisXValue = 1.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Value;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="QoL|Float Provider")
 	FCurveTableRowHandle RowHandle;
 };

@@ -2,5 +2,5 @@
 
 float UQL_FloatExtractor_CurveTableRow::GetValue_Implementation() 
 {
-	return RowHandle.Eval(Value, FString(""));
+	return RowHandle.Eval(AxisXValue, FString(""));
 }

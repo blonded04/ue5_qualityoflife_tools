@@ -2,5 +2,5 @@
 
 float UQL_FloatExtractor_Counter::GetValue_Implementation() 
 {
-	return Value += Delta;
+	return BaseValue += Delta;
 }
