@@ -38,6 +38,7 @@ public class QualityOfLife : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"AIModule",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

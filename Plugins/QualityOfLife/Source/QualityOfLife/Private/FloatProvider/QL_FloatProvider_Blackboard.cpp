@@ -3,8 +3,7 @@
 
 #include "FloatProvider/QL_FloatProvider_Blackboard.h"
 
-#include "BehaviorTree/BehaviorTree.h"
-#include "BehaviorTree/BlackboardComponent.h"
+#include "QualityOfLife.h"
 #include "BehaviorTree/BTFunctionLibrary.h"
 #include "BehaviorTree/BTTaskNode.h"
 
@@ -19,6 +18,6 @@ float UQL_FloatProvider_Blackboard::GetValue_Implementation()
 	{
 		return UBTFunctionLibrary::GetBlackboardValueAsFloat(NodeOwner, BlackboardKey);
 	}
-	UE_LOG(LogObj, Error, TEXT("Called GetValue from QL_FloatProvider_BlackBoard which do not belong to BTNode. Owner is %s"), *GetNameSafe(GetOuter()))
+	UE_LOG(LogQoL, Error, TEXT("Called GetValue from QL_FloatProvider_BlackBoard which do not belong to BTNode. Owner is %s"), *GetNameSafe(GetOuter()))
 	return 0.0f;
 }
